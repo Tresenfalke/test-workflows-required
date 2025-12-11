@@ -1,0 +1,27 @@
+name: Path Filter
+description: Checks for changes in backend and frontend-related files.
+
+outputs:
+  backend:
+    description: Indicates whether the path filter has detected changes in backend-related files.
+    value: ${{ steps.filter.outputs.backend == 'true' }}
+  frontend:
+    description: Indicates whether the path filter has detected changes in frontend-related files.
+    value: ${{ steps.filter.outputs.frontend == 'true' }}
+
+runs:
+  using: composite
+  steps:
+    # - name: Initialize
+    #   run: echo "Initializing..."
+    #   shell: bash
+    - name: Check for relevant changes
+      uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3
+      id: filter
+      with:
+        initial-fetch-depth: 50
+        filters: |
+          backend:
+            - 'backend/**'
+          frontend:
+            - 'frontend/**'
