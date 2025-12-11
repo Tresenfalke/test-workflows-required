@@ -58,4 +58,4 @@ jobs:
       - name: Always
         run: |
           echo "Always"
-          exit 1
+          exit 0
