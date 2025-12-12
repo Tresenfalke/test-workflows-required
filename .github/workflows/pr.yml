@@ -39,7 +39,6 @@ jobs:
       - name: Good
         run: |
           echo "Good"
-          sleep 60
           exit 0
 
   backend-tests:
@@ -51,7 +50,6 @@ jobs:
       - name: Good
         run: |
           echo "Good"
-          sleep 120
           exit 0
 
   run-always:
@@ -62,3 +60,11 @@ jobs:
         run: |
           echo "Always"
           exit 0
+
+  required-checks:
+    name: Check Required Steps
+    runs-on: ubuntu-latest
+    needs: ["frontend-test", "backend-tests", "run-always"]
+    if: always()
+    steps:
+      - run: echo '${{ toJSON(needs) }}' | jq -e 'to_entries | all(.value.result == "success")'
