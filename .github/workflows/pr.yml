@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
   pull_request:
     branches: [main]
+  merge_group:
 
 jobs:
   check-backend-or-frontend:
@@ -38,6 +39,7 @@ jobs:
       - name: Good
         run: |
           echo "Good"
+          sleep 60
           exit 0
 
   backend-tests:
@@ -49,6 +51,7 @@ jobs:
       - name: Good
         run: |
           echo "Good"
+          sleep 120
           exit 0
 
   run-always:
